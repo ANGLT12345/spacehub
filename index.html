@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceBooker - Find and Book Spaces</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="container flex items-center justify-between">
+            <div class="navbar-brand">
+                <h2>SpaceBooker</h2>
+            </div>
+            <div class="navbar-nav">
+                <div id="public-nav" class="nav-links">
+                    <button id="login-btn" class="btn btn--outline">Login</button>
+                    <button id="register-btn" class="btn btn--primary">Register</button>
+                </div>
+                <div id="auth-nav" class="nav-links hidden">
+                    <span id="user-name" class="user-greeting"></span>
+                    <button id="dashboard-btn" class="btn btn--secondary">Dashboard</button>
+                    <button id="logout-btn" class="btn btn--outline">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Home/Directory View -->
+        <div id="home-view" class="view">
+            <div class="container">
+                <div class="directory-header">
+                    <h1>Discover & Book Spaces</h1>
+                    <p class="text-secondary">Find the perfect space for your next meeting, event, or activity</p>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="search-filters">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search by name or location...">
+                    </div>
+                    <div class="filters">
+                        <select id="type-filter" class="form-control">
+                            <option value="">All Types</option>
+                            <option value="Meeting Room">Meeting Room</option>
+                            <option value="Sports Court">Sports Court</option>
+                            <option value="Event Venue">Event Venue</option>
+                        </select>
+                        <select id="price-filter" class="form-control">
+                            <option value="">Any Price</option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Spaces Grid -->
+                <div id="spaces-grid" class="spaces-grid">
+                    <!-- Space cards will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Space Detail View -->
+        <div id="detail-view" class="view hidden">
+            <div class="container">
+                <button id="back-to-home" class="btn btn--outline mb-8">← Back to Directory</button>
+                <div class="space-detail">
+                    <div class="space-hero">
+                        <h1 id="detail-name"></h1>
+                        <div class="space-image">
+                            <img id="detail-image" src="" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="detail-left">
+                            <div class="calendar-section">
+                                <h3>Availability</h3>
+                                <div id="availability-calendar"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-right">
+                            <div class="space-info">
+                                <div class="info-section">
+                                    <h4>Description</h4>
+                                    <p id="detail-description"></p>
+                                </div>
+                                
+                                <div class="info-section">
+                                    <h4>Location</h4>
+                                    <p id="detail-location"></p>
+                                </div>
+                                
+                                <div class="info-section">
+                                    <h4>Pricing</h4>
+                                    <div id="detail-pricing"></div>
+                                </div>
+                                
+                                <div class="info-section">
+                                    <h4>Amenities</h4>
+                                    <div id="detail-amenities" class="amenities-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login View -->
+        <div id="login-view" class="view hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Login to SpaceBooker</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="login-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="login-password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    </form>
+                    <p class="auth-switch">
+                        Don't have an account? 
+                        <button id="switch-to-register" class="link-btn">Register here</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register View -->
+        <div id="register-view" class="view hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Register for SpaceBooker</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="register-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="register-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="register-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">I am a:</label>
+                            <select id="register-role" class="form-control" required>
+                                <option value="">Select Role</option>
+                                <option value="booker">Space Booker</option>
+                                <option value="owner">Facility Owner</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                    </form>
+                    <p class="auth-switch">
+                        Already have an account? 
+                        <button id="switch-to-login" class="link-btn">Login here</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view hidden">
+            <div class="dashboard-layout">
+                <aside class="dashboard-sidebar">
+                    <div class="sidebar-user">
+                        <h4 id="sidebar-user-name"></h4>
+                        <span id="sidebar-user-role" class="status status--info"></span>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <button class="nav-item active" data-section="my-spaces">My Spaces</button>
+                        <button class="nav-item" data-section="bookings">Bookings</button>
+                        <button class="nav-item" data-section="account">Account</button>
+                    </nav>
+                </aside>
+                
+                <main class="dashboard-main">
+                    <!-- My Spaces Section -->
+                    <div id="my-spaces-section" class="dashboard-section">
+                        <div class="section-header">
+                            <h2>My Spaces</h2>
+                            <button id="create-space-btn" class="btn btn--primary">Create New Space</button>
+                        </div>
+                        <div id="owner-spaces-grid" class="spaces-grid">
+                            <!-- Owner's spaces will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Bookings Section -->
+                    <div id="bookings-section" class="dashboard-section hidden">
+                        <h2>My Bookings</h2>
+                        <div id="bookings-list">
+                            <!-- Bookings will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Account Section -->
+                    <div id="account-section" class="dashboard-section hidden">
+                        <h2>Account Settings</h2>
+                        <div class="account-info">
+                            <div class="info-row">
+                                <strong>Name:</strong> <span id="account-name"></span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Email:</strong> <span id="account-email"></span>
+                            </div>
+                            <div class="info-row">
+                                <strong>Role:</strong> <span id="account-role"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Create/Edit Space Form -->
+                    <div id="space-form-section" class="dashboard-section hidden">
+                        <div class="section-header">
+                            <h2 id="form-title">Create New Space</h2>
+                            <button id="cancel-form-btn" class="btn btn--outline">Cancel</button>
+                        </div>
+                        <form id="space-form" class="space-form">
+                            <div class="form-group">
+                                <label class="form-label">Space Name</label>
+                                <input type="text" id="form-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea id="form-description" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Type</label>
+                                <select id="form-type" class="form-control" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Meeting Room">Meeting Room</option>
+                                    <option value="Sports Court">Sports Court</option>
+                                    <option value="Event Venue">Event Venue</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" id="form-location" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Price per Hour ($)</label>
+                                <input type="number" id="form-price" class="form-control" min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="form-public"> Make this space public
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Image Upload (Mock)</label>
+                                <div class="image-upload">
+                                    <input type="file" id="form-image" accept="image/*" class="form-control">
+                                    <p class="text-secondary">Upload an image of your space</p>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Save Space</button>
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Booking</h3>
+                <button id="close-modal" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="booking-details">
+                    <p><strong>Space:</strong> <span id="booking-space-name"></span></p>
+                    <p><strong>Date:</strong> <span id="booking-date"></span></p>
+                    <p><strong>Time:</strong> <span id="booking-time"></span></p>
+                </div>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" id="booking-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="booking-email" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-booking" class="btn btn--outline">Cancel</button>
+                <button id="confirm-booking" class="btn btn--primary">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" class="success-toast hidden">
+        <p id="success-text"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
